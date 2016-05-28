@@ -7,18 +7,11 @@
     "src/js/p-calendar.js"
   ],
   "ignore": [
-    ".jshintrc",
-    "**/*.txt",
-    "source",
-    "spec",
-    ".bowerrc",
-    ".gitignore",
-    ".jshintignore",
-    ".jshintrc",
-    "bower.json",
-    "gruntfile.js",
-    "package.json",
-    "README.md"
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "homepage": "https://github.com/hessam-nadr/perisan-calendar",
   "_release": "0.1.1",
