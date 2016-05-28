@@ -1,0 +1,26 @@
+{
+  "name": "persian-calendar",
+  "description": "persian calendar base on persian date and bootstrap",
+  "main": [
+    "src/css/persian-calendar.css",
+    "src/js/plugin.js",
+    "src/js/p-calendar.js"
+  ],
+  "moduleType": [],
+  "authors": [
+    "hessam nadr"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.0.3",
+    "jquery": "~1.10.2",
+    "persian-date-ehdi": "0.1.9"
+  }
+}

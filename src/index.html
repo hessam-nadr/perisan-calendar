@@ -1,0 +1,42 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Persian DatePicker</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href="css/persian-calendar.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="../lib/jquery.js"></script>
+    <script type="text/javascript" src="../lib/persian-date.js"></script>
+
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="js/plugin.js"></script>
+    <script type="text/javascript" src="js/p-calendar.js"></script>
+    <style>
+        .center-content {
+            display: block;
+            width: 700px;
+            margin: 0px auto 0px auto;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        input {
+            width: 300px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#calendar").pCalendar({data:[]});
+    });
+</script>
+
+<div class="col-xs-12">
+    <div id="calendar"></div>
+</div>
+</body>
+</html>
