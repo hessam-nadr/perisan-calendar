@@ -1,0 +1,33 @@
+{
+  "name": "persian-calendar",
+  "version": "0.1.1",
+  "main": [
+    "src/css/persian-calendar.css",
+    "src/js/plugin.js",
+    "src/js/p-calendar.js"
+  ],
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt",
+    "source",
+    "spec",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "homepage": "https://github.com/hessam-nadr/perisan-calendar",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.1",
+    "commit": "44b4b48b171eb22fc7ffaf5e3665be913b0a821b"
+  },
+  "_source": "https://github.com/hessam-nadr/perisan-calendar",
+  "_target": "0.1.1",
+  "_originalSource": "persian-calendar"
+}

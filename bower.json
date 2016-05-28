@@ -1,15 +1,13 @@
 {
   "name": "persian-calendar",
+  "version": "0.1.1",
   "description": "persian calendar base on persian date and bootstrap",
   "main": [
     "src/css/persian-calendar.css",
     "src/js/plugin.js",
     "src/js/p-calendar.js"
   ],
-  "moduleType": [],
-  "authors": [
-    "hessam nadr"
-  ],
+  "homepage": "https://github.com/hessam-nadr/perisan-calendar",
   "license": "MIT",
   "ignore": [
     "**/.*",
