@@ -1,6 +1,6 @@
 {
   "name": "persian-calendar",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "persian calendar base on persian date and bootstrap",
   "main": [
     "./src/css/persian-calendar.css",

@@ -1,5 +1,5 @@
 'use strict';
-var TEMPLATE = {
+var CalendarTEMPLATE = {
 
     datepciker: "<div class='{{css.calendarPlotArea}}' >" + //
     "<div class='{{css.navigator}}' ></div>" +//
@@ -24,7 +24,7 @@ var TEMPLATE = {
     "<table cellspacing='0' class='{{css.daysTable}}'  ><tbody><tr><td /><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/></tr></tbody></table>" + //
     "</div>"
 };
-var ClassMonthGrid = {
+var ClassCalendarMonthGrid = {
     state: {
         year: null,
         month: null,
@@ -77,7 +77,13 @@ var ClassMonthGrid = {
     _updateState: function () {
         var self = this;
         var t = new persianDate();
+        //console.log("_updateState",this);
+        //console.log(self.state.month);
+        //var month = new persianDate(this.Calendar.viewDateState).getMonth();
+        //console.log(month);
         self.daysCount = t.daysInMonth(self.state.year, self.state.month);
+        //self.daysCount = t.daysInMonth(self.state.year, month);
+        //self.firstWeekDayOfMonth = t.getFirstWeekDayOfMonth(self.state.year, month);
         self.firstWeekDayOfMonth = t.getFirstWeekDayOfMonth(self.state.year, self.state.month);
         return this;
     },
@@ -352,7 +358,7 @@ var ClassCalendarState = {
         return this;
     }
 };
-var ClassDayPicker = {
+var ClassCalendarDayPicker = {
     next: function () {
         var self = this;
         if (self.Calendar.state.view.month === 12) {
@@ -429,7 +435,7 @@ var ClassDayPicker = {
 
     _render: function () {
         var self = this;
-        this.mGrid = new MonthGrid({
+        this.mGrid = new CalendarMonthGrid({
             container: self.container,
             persianDigit: self.Calendar.persianDigit,
             month: self.Calendar.state.selected.month,
@@ -456,7 +462,7 @@ var ClassDayPicker = {
         return this;
     }
 };
-var ClassNavigator = {
+var ClassCalendarNavigator = {
 
     cssClass: {
         calendarHeader: "calendar-header",
@@ -497,7 +503,7 @@ var ClassNavigator = {
         self.viewData = {
             css: self.cssClass
         };
-        self.element = $.tmplMustache(TEMPLATE.navigator, self.viewData).appendTo(self.$container);
+        self.element = $.tmplMustache(CalendarTEMPLATE.navigator, self.viewData).appendTo(self.$container);
     },
 
     _attachEvents: function () {
@@ -519,7 +525,7 @@ var ClassNavigator = {
         return this;
     }
 };
-var ViewsMonthGrid = {
+var ViewsCalendarMonthGrid = {
     cssClass: {
         main: "month-grid-box",
         header: "header",
@@ -538,7 +544,7 @@ var ViewsMonthGrid = {
                 self.viewData = {
                     css: self.cssClass
                 };
-                self.element = $.tmplMustache(TEMPLATE.monthGrid, self.viewData).appendTo(self.container);
+                self.element = $.tmplMustache(CalendarTEMPLATE.monthGrid, self.viewData).appendTo(self.container);
                 self.header = self.createElementByClass(self.cssClass.header);
                 self.headerRow = self.createElementByClass(self.cssClass.headerRow);
                 var weekDay;
@@ -552,7 +558,7 @@ var ViewsMonthGrid = {
                 self._updateState();
                 self.daysList = [];
                 var addSpan = function (day, month, year, cssClass) {
-                    var statements = self.Calendar.renderStatements(day, month, year,self);
+                    var statements = self.Calendar.renderStatements(day, month, year, self);
                     var dayPartUnixTime = new persianDate([year, month, day]).valueOf();
                     var span = $(statements)
                         .addClass(cssClass)
@@ -660,8 +666,9 @@ var ViewsCalendar = {
                 self.element = {};
                 self.statements = self.statement;
                 self.renderStatements = self.renderStatements;
+                self.viewDateState = self.viewDateState;
 
-                self.element.main = $.tmplMustache(TEMPLATE.datepciker, viewData).appendTo(self.$container);
+                self.element.main = $.tmplMustache(CalendarTEMPLATE.datepciker, viewData).appendTo(self.$container);
 
                 if (!self._inlineView) {
                     self.element.main.hide();
@@ -675,9 +682,9 @@ var ViewsCalendar = {
 
                 self.container.navigator = $(self.element.main).children('.' + self.cssClass.navigator);
                 self.container.dayView = $(self.element.main).children('.' + self.cssClass.dayView);
-                self.navigator = new Navigator($.extend(true, self.navigator, {Calendar: self}), self.container.navigator);
+                self.navigator = new CalendarNavigator($.extend(true, self.navigator, {Calendar: self}), self.container.navigator);
 
-                self.dayPicker = new Daypicker($.extend(true, self.dayPicker, {Calendar: self}), self.container.dayView);
+                self.dayPicker = new CalendarDaypicker($.extend(true, self.dayPicker, {Calendar: self}), self.container.dayView);
                 self._pickers.day = self.dayPicker;
 
                 self._syncWithImportData(self.state.unixDate);
@@ -706,7 +713,7 @@ var ViewsCalendar = {
         }
     }
 };
-var ClassBase = {
+var ClassCalendarBase = {
 
     init: function () {
         this.isInstance = true;
@@ -814,7 +821,7 @@ var ClassBase = {
         return this;
     }
 };
-var ClassSprite = {
+var ClassCalendarSprite = {
 
     defaultView: "default",
 
@@ -851,7 +858,7 @@ var ClassSprite = {
 };
 
 //ok
-var ClassCompat = {
+var ClassCalendarCompat = {
     compatConfig: function () {
         if (this.viewMode === false) {
             this.viewMode = 'day';
@@ -867,7 +874,7 @@ var ClassCompat = {
 };
 
 //ok
-var ClassConfig = {
+var ClassCalendarConfig = {
 
     persianDigit: true,
 
@@ -969,12 +976,14 @@ var ClassConfig = {
 
     statement:[],
 
+    viewDateState: new Date(),
+
     renderStatements:function(){
 
     }
 
 };
-var ClassDateRange = {
+var ClassCalendarDateRange = {
     /**
      * @property monthRange
      */
@@ -1321,7 +1330,7 @@ var ClassCalendar = {
             this.$container = $('body');
         }
         else {
-            var garegurianDate = new Date($(this.$container).data('date')).valueOf();
+            var garegurianDate = new Date(this.viewDateState).valueOf();
             this._inlineView = true;
         }
         if (garegurianDate && garegurianDate != 'undefined') {
@@ -1347,7 +1356,8 @@ var ClassCalendar = {
         var self = this;
         this.statement = self.statement;
         this.renderStatements = self.renderStatements;
-        this.state = new State({Calendar: self});
+        this.viewDateState = self.viewDateState;
+        this.state = new CalendarState({Calendar: self});
         this.compatConfig();
         this._defineOnInitState();
         this._updateInputElement();
@@ -1359,31 +1369,31 @@ var ClassCalendar = {
         return this;
     }
 };
-var Daypicker = function (options, container) {
-    return inherit(this, [ClassSprite, ClassDayPicker, options, {
+var CalendarDaypicker = function (options, container) {
+    return inherit(this, [ClassCalendarSprite, ClassCalendarDayPicker, options, {
         container: container
     }]);
 };
-var Navigator = function (options, container) {
-    return inherit(this, [ClassSprite, ClassNavigator, options, {
+var CalendarNavigator = function (options, container) {
+    return inherit(this, [ClassCalendarSprite, ClassCalendarNavigator, options, {
         $container: container
     }]);
 };
 
 //ok
 var Calendar = function (mainElem, options) {
-    return inherit(this, [ClassSprite, ClassCompat, ClassCalendar, ViewsCalendar, ClassConfig, options, {
+    return inherit(this, [ClassCalendarSprite, ClassCalendarCompat, ClassCalendar, ViewsCalendar, ClassCalendarConfig, options, {
         $container: mainElem,
         inputElem: $(mainElem)
     }]);
 };
-var State = function (options) {
+var CalendarState = function (options) {
     return inherit(this, [ClassCalendarState, options]);
 };
-var MonthGrid = function (options) {
+var CalendarMonthGrid = function (options) {
     // Change !!
     //this.pcal = options.parent.pcal;
-    inherit(this, [ClassSprite, ViewsMonthGrid, ClassDateRange, ClassMonthGrid, options]);
+    inherit(this, [ClassCalendarSprite, ViewsCalendarMonthGrid, ClassCalendarDateRange, ClassCalendarMonthGrid, options]);
     return this;
 };
 
@@ -1545,7 +1555,7 @@ var inherit = function (self, baseClasses) {
     var copyObject = function (o) {
         return $.extend(true, {}, o);
     };
-    var args = [true, self, copyObject(ClassBase)];
+    var args = [true, self, copyObject(ClassCalendarBase)];
     var events = [];
     for (var index in baseClasses) {
         var cls = copyObject(baseClasses[index]);
