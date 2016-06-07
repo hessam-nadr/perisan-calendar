@@ -7,10 +7,6 @@ var CalendarTEMPLATE = {
     "</div>",
 
     navigator: "<div class='{{css.calendarHeader}}' >" + //
-    "<div class='btn-group btn-group-navigator' role='group' >" +
-    "<div class='btn {{css.btnNext}}'><span class='glyphicon glyphicon-chevron-left'></span></div>" +
-    "<div class='btn {{css.btnPrev}}'><span class='glyphicon glyphicon-chevron-right'></span></div>" +
-    "</div>" +
     "<div class='month-title-ja'></div>" + //
     "<div class='month-title-ge'></div>" + //
     "</div>",
@@ -77,13 +73,7 @@ var ClassCalendarMonthGrid = {
     _updateState: function () {
         var self = this;
         var t = new persianDate();
-        //console.log("_updateState",this);
-        //console.log(self.state.month);
-        //var month = new persianDate(this.Calendar.viewDateState).getMonth();
-        //console.log(month);
         self.daysCount = t.daysInMonth(self.state.year, self.state.month);
-        //self.daysCount = t.daysInMonth(self.state.year, month);
-        //self.firstWeekDayOfMonth = t.getFirstWeekDayOfMonth(self.state.year, month);
         self.firstWeekDayOfMonth = t.getFirstWeekDayOfMonth(self.state.year, self.state.month);
         return this;
     },
@@ -361,6 +351,7 @@ var ClassCalendarState = {
 var ClassCalendarDayPicker = {
     next: function () {
         var self = this;
+
         if (self.Calendar.state.view.month === 12) {
             self.Calendar.state.setView('month', 1);
             self.Calendar.state.setView('year', parseInt(self.Calendar.state.view.year) + 1);
@@ -588,7 +579,7 @@ var ViewsCalendarMonthGrid = {
                         addSpan.apply(this, [day, prevMonth, prevYear, "other-month"])
                     } else if (index + 2 === (currentMonthIndex + self.firstWeekDayOfMonth) && currentMonthIndex <= self.daysCount) {
                         var day = currentMonthIndex;
-                        addSpan.apply(this, [day, parseInt(self.state.month), parseInt(self.state.year)])
+                        addSpan.apply(this, [day, parseInt(self.state.month), parseInt(self.state.year)]);
                         currentMonthIndex++;
                     } else {
 
@@ -649,7 +640,7 @@ var ViewsCalendar = {
     cssClass: {
         calendarPlotArea: "calendar-plot-area",
         dayView: "calendar-day-view",
-        navigator: "navigator",
+        navigator: "navigator"
     },
 
     container: {},
@@ -930,14 +921,14 @@ var ClassCalendarConfig = {
     },
 
     navigator: {
-
         onNext: function (navigator) {
-            log("navigator next ");
+
         },
 
         onPrev: function (navigator) {
-            log("navigator prev ");
+
         }
+
     },
 
     dayPicker: {
@@ -979,6 +970,10 @@ var ClassCalendarConfig = {
     viewDateState: new Date(),
 
     renderStatements:function(){
+
+    },
+
+    onChangeMonth:function(){
 
     }
 
@@ -1618,5 +1613,3 @@ if (!jQuery.browser) {
 
     jQuery.browser = browser;
 }
-
-
